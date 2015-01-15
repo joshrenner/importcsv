@@ -355,6 +355,9 @@ class contentExtensionImportcsvIndex extends AdministrationPage
         // Load the drivers:
         $drivers = $this->getDrivers();
 
+        // Get the current time stamp
+        $time = date("Y-m-d H:i:s");
+
         // Get the fields of this section:
         $sectionID = $_REQUEST['section-export'];
         $sm = new SectionManager($this);
@@ -428,8 +431,17 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                 $line = array();
                 foreach ($fields as $field)
                 {
-                    $data = $entry->getData($field->get('id'));
+                    $fieldID = $field->get('id');
+                    $data = $entry->getData($fieldID);
                     $type = $field->get('type');
+
+                    // Set the time of first export
+                    if ($field->get('element_name')  == 'date-first-exported' && empty($data)) {
+                        $entry->setData($fieldID, array('value' => $time, 'date' => $time));
+                        $data = $entry->getData($fieldID);
+                        Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $time, 'date' => $time), 'tbl_entries_data_' . $fieldID);
+                    }
+
                     if (isset($drivers[$type])) {
                         $drivers[$type]->setField($field);
                         $value = $drivers[$type]->export($data, $entry->get('id'));
