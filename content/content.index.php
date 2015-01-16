@@ -436,10 +436,16 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                     $type = $field->get('type');
 
                     // Set the time of first export
-                    if ($field->get('element_name')  == 'date-first-exported' && empty($data)) {
+                    if ($field->get('element_name')  == 'date-first-exported' && (empty($data) || is_null($data['date']))) {
                         $entry->setData($fieldID, array('value' => $time, 'date' => $time));
                         $data = $entry->getData($fieldID);
-                        Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $time, 'date' => $time), 'tbl_entries_data_' . $fieldID);
+                        if (empty($data))  {
+                            Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $time, 'date' => $time), 'tbl_entries_data_' . $fieldID);
+                        } else {
+                            Symphony::Database()->update(array('value' => $time, 'date' => $time),
+                                                                'tbl_entries_data_' . $fieldID,
+                                                                "`entry_id` = " + $entry->get('id'));
+                        }
                     }
 
                     if (isset($drivers[$type])) {
