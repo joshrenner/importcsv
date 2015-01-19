@@ -434,9 +434,10 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                     $fieldID = $field->get('id');
                     $data = $entry->getData($fieldID);
                     $type = $field->get('type');
+                    $element = $field->get('element_name');
 
                     // Set the time of first export
-                    if ($field->get('element_name')  == 'date-first-exported' && (empty($data) || is_null($data['date']))) {
+                    if ($element == 'date-first-exported' && !isset($data['date'])) {
                         $entry->setData($fieldID, array('value' => $time, 'date' => $time));
                         $data = $entry->getData($fieldID);
                         if (empty($data))  {
@@ -448,7 +449,10 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                         }
                     }
 
-                    if (isset($drivers[$type])) {
+                    if (isset($drivers[$element])) {
+                        $drivers[$element]->setField($field);
+                        $value = $drivers[$element]->export($data, $entry->get('id'));
+                    } elseif (isset($drivers[$type])) {
                         $drivers[$type]->setField($field);
                         $value = $drivers[$type]->export($data, $entry->get('id'));
                     } else {
