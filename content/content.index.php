@@ -369,7 +369,7 @@ class contentExtensionImportcsvIndex extends AdministrationPage
         $headers = array();
         foreach ($fields as $field)
         {
-            $headers[] = '"' . str_replace('"', '""', $field->get('label')) . '"';
+            $headers[] = '"' . str_replace('"', '""', $field->get('element_name')) . '"';
         }
 
         header('Content-type: text/csv');
