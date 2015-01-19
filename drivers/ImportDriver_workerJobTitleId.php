@@ -4,15 +4,15 @@
  * Import Driver for type: gender
  */
 
-class ImportDriver_trade extends ImportDriver_default {
+class ImportDriver_workerJobTitleId extends ImportDriver_default {
 
     /**
      * Constructor
      * @return void
      */
-    public function ImportDriver_trade()
+    public function ImportDriver_workerJobTitleId()
     {
-        $this->type = 'trade';
+        $this->type = 'workerJobTitleId';
     }
 
     /**
