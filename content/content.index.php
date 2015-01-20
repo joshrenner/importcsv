@@ -461,7 +461,7 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                     }
                     $line[] = '"' . str_replace('"', '""', trim($value)) . '"';
                 }
-                echo implode(';', $line) . "\r\n";
+                echo implode(',', $line) . "\r\n";
             }
         }
         die();
