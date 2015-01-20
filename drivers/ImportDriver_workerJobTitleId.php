@@ -49,8 +49,14 @@ class ImportDriver_workerJobTitleId extends ImportDriver_default {
             case 'operator':
                 $value = 10;
                 break;
-            default:
+            case 'mason-laborer':
+                $value = 16;
+                break;
+            case 'concete-laborer':
                 $value = 8;
+                break;
+            default:
+                $value = 19;
                 break;
         }
 
