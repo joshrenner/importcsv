@@ -376,7 +376,7 @@ class contentExtensionImportcsvIndex extends AdministrationPage
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
 
         // Show the headers:
-        echo implode(';', $headers) . "\n";
+        echo implode(',', $headers) . "\n";
 
          /*
          * Enable filtering!
