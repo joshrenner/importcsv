@@ -439,12 +439,12 @@ class contentExtensionImportcsvIndex extends AdministrationPage
 
                     // Set the time of first export
                     if ($element == 'date-first-exported' && !isset($data['date'])) {
-                        $entry->setData($fieldID, array('value' => $time, 'date' => $time));
+                        $entry->setData($fieldID, array('value' => $date, 'date' => $time));
                         $data = $entry->getData($fieldID);
                         if (empty($data))  {
-                            Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $time, 'date' => $date), 'tbl_entries_data_' . $fieldID);
+                            Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $date, 'date' => $time), 'tbl_entries_data_' . $fieldID);
                         } else {
-                            Symphony::Database()->update(array('value' => $time, 'date' => $time),
+                            Symphony::Database()->update(array('value' => $date, 'date' => $time),
                                                                 'tbl_entries_data_' . $fieldID,
                                                                 "`entry_id` = " + $entry->get('id'));
                         }
