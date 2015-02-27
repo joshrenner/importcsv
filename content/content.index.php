@@ -450,9 +450,9 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                         }
                     }
 
-                    if (isset($drivers[$element])) {
-                        $drivers[$element]->setField($field);
-                        $value = $drivers[$element]->export($data, $entry->get('id'));
+                    if (isset($drivers[lcfirst($element)])) {
+                        $drivers[lcfirst($element)]->setField($field);
+                        $value = $drivers[lcfirst($element)]->export($data, $entry->get('id'));
                     } elseif (isset($drivers[$type])) {
                         $drivers[$type]->setField($field);
                         $value = $drivers[$type]->export($data, $entry->get('id'));
