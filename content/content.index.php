@@ -357,6 +357,7 @@ class contentExtensionImportcsvIndex extends AdministrationPage
 
         // Get the current time stamp
         $time = date("Y-m-d H:i:s");
+        $date = date("c");
 
         // Get the fields of this section:
         $sectionID = $_REQUEST['section-export'];
@@ -441,7 +442,7 @@ class contentExtensionImportcsvIndex extends AdministrationPage
                         $entry->setData($fieldID, array('value' => $time, 'date' => $time));
                         $data = $entry->getData($fieldID);
                         if (empty($data))  {
-                            Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $time, 'date' => $time), 'tbl_entries_data_' . $fieldID);
+                            Symphony::Database()->insert(array('entry_id' => $entry->get('id'), 'value' => $time, 'date' => $date), 'tbl_entries_data_' . $fieldID);
                         } else {
                             Symphony::Database()->update(array('value' => $time, 'date' => $time),
                                                                 'tbl_entries_data_' . $fieldID,
